@@ -1,0 +1,2 @@
+[02-Nov-2017 18:53:41 America/New_York] PHP Fatal error:  Call to undefined function _e() in /home3/wankitnw/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/templates/upload_images.php on line 2
+[02-Nov-2017 18:53:59 America/New_York] PHP Fatal error:  Call to undefined function _e() in /home3/wankitnw/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/templates/import_folder.php on line 1
