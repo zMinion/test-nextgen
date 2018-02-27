@@ -27,11 +27,6 @@ class C_NextGen_Style_Manager
 		// This is where all stylesheets should be stored
 		$this->add_directory($this->new_dir);
 
-		// We also check wp-content/ngg/styles
-		$this->add_directory(implode(DIRECTORY_SEPARATOR, array(
-			WP_CONTENT_DIR, 'ngg', 'styles'
-		)));
-
 		// We check the parent theme directory. Needed for child themes
 		$this->add_directory(rtrim(get_template_directory(), "/\\"), TRUE);
 
@@ -178,8 +173,6 @@ class C_NextGen_Style_Manager
 			}
 		}
 
-        $retval = str_replace('/', DIRECTORY_SEPARATOR, $retval);
-
 		return $retval;
 	}
 
@@ -189,22 +182,11 @@ class C_NextGen_Style_Manager
 	 */
 	function get_selected_stylesheet_url($selected=FALSE)
 	{
-		if (!$selected)
-            $selected = $this->get_selected_stylesheet();
-        $abspath = $this->find_selected_stylesheet_abspath($selected);
-
-        // default_dir is the only resource loaded from inside the plugin directory
-        $type = 'content';
-        $url = content_url();
-        if (0 === strpos($abspath, $this->default_dir))
-        {
-            $type = 'plugins';
-            $url = plugins_url();
-        }
+		if (!$selected) $selected = $this->get_selected_stylesheet();
 
 		$retval =  str_replace(
-			C_Fs::get_instance()->get_document_root($type),
-            $url,
+			C_Fs::get_instance()->get_document_root(),
+            site_url(),
 			$this->find_selected_stylesheet_abspath($selected)
 		);
 

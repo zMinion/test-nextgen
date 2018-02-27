@@ -10,19 +10,12 @@ function nggallery_manage_gallery_main() {
 	//Build the pagination for more than 25 galleries
     $_GET['paged'] = isset($_GET['paged']) && ($_GET['paged'] > 0) ? absint($_GET['paged']) : 1;
 
-	$items_per_page = apply_filters('ngg_manage_galleries_items_per_page', 25);
+    $items_per_page = 25;
 
 	$start = ( $_GET['paged'] - 1 ) * $items_per_page;
 
-    if (!empty($_GET['order']) && in_array($_GET['order'], array('DESC', 'ASC')))
-		$order = $_GET['order'];
-	else
-		$order = apply_filters('ngg_manage_galleries_items_order', 'ASC');
-
-	if (!empty($_GET['orderby']) && in_array($_GET['orderby'], array('gid', 'title', 'author')))
-		$orderby = $_GET['orderby'];
-	else
-		$orderby = apply_filters('ngg_manage_galleries_items_orderby', 'gid');
+    $order = ( isset ( $_GET['order'] ) && $_GET['order'] == 'desc' ) ? 'DESC' : 'ASC';
+    $orderby = ( isset ( $_GET['orderby'] ) && ( in_array( $_GET['orderby'], array('gid', 'title', 'author') )) ) ? $_GET['orderby'] : 'gid';
 
 	$mapper = C_Gallery_Mapper::get_instance();
 	$total_number_of_galleries = $mapper->count();
@@ -170,6 +163,7 @@ function nggallery_manage_gallery_main() {
 	//-->
 	</script>
 	<div class="wrap">
+		<?php //include('templates/social_media_buttons.php'); ?>
 		<?php screen_icon( 'nextgen-gallery' ); ?>
 		<h2><?php echo _n( 'Manage Galleries', 'Manage Galleries', 2, 'nggallery'); ?></h2>
 		<form class="search-form" action="" method="get">
@@ -180,7 +174,7 @@ function nggallery_manage_gallery_main() {
 			<input type="submit" value="<?php _e( 'Search Images', 'nggallery' ); ?>" class="button" />
 		</p>
 		</form>
-		<form id="editgalleries" class="nggform" method="POST" action="<?php echo $ngg->manage_page->base_page . '&amp;paged=' . esc_attr($_GET['paged']); ?>" accept-charset="utf-8">
+		<form id="editgalleries" class="nggform" method="POST" action="<?php echo $ngg->manage_page->base_page . '&amp;paged=' . $_GET['paged']; ?>" accept-charset="utf-8">
 		<?php wp_nonce_field('ngg_bulkgallery') ?>
 		<input type="hidden" name="page" value="manage-galleries" />
 
@@ -190,7 +184,6 @@ function nggallery_manage_gallery_main() {
 				<?php if ( function_exists('json_encode') ) : ?>
 				<select name="bulkaction" id="bulkaction">
 					<option value="no_action" ><?php _e("Bulk actions",'nggallery'); ?></option>
-					<option value="scanfolder_gallery" ><?php _e("Scan Folder for new images",'nggallery'); ?></option>
 					<option value="delete_gallery" ><?php _e("Delete",'nggallery'); ?></option>
                     <option value="set_watermark" ><?php _e("Set watermark",'nggallery'); ?></option>
 					<option value="new_thumbnail" ><?php _e("Create new thumbnails",'nggallery'); ?></option>
@@ -209,7 +202,7 @@ function nggallery_manage_gallery_main() {
         <?php $ngg->manage_page->pagination( 'top', $_GET['paged'], $total_number_of_galleries, $items_per_page  ); ?>
 
 		</div>
-		<table class="wp-list-table widefat" cellspacing="0">
+		<table class="wp-list-table widefat fixed" cellspacing="0">
 			<thead>
 			<tr>
 <?php $wp_list_table->print_column_headers(true); ?>
@@ -267,10 +260,10 @@ if($gallerylist) {
         			<td class="title column-title">
         				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) { ?>
         					<a href="<?php echo wp_nonce_url( $ngg->manage_page->base_page . '&amp;mode=edit&amp;gid=' . $gid, 'ngg_editgallery')?>" class='edit' title="<?php _e('Edit'); ?>" >
-        						<?php echo esc_html( M_I18N::translate($name) ); ?>
+        						<?php echo esc_html( nggGallery::i18n($name) ); ?>
         					</a>
         				<?php } else { ?>
-        					<?php echo esc_html( M_I18N::translate($gallery->title) ); ?>
+        					<?php echo esc_html( nggGallery::i18n($gallery->title) ); ?>
         				<?php } ?>
                         <div class="row-actions"></div>
         			</td>
@@ -278,7 +271,7 @@ if($gallerylist) {
     			break;
     			case 'description' :
     			    ?>
-					<td <?php echo $attributes ?>><?php echo esc_html( M_I18N::translate($gallery->galdesc) ); ?>&nbsp;</td>
+					<td <?php echo $attributes ?>><?php echo esc_html( nggGallery::i18n($gallery->galdesc) ); ?>&nbsp;</td>
 					<?php
     			break;
     			case 'author' :
@@ -295,7 +288,7 @@ if($gallerylist) {
 					$gallery->counter = count(
 						$image_mapper->select($image_mapper->get_primary_key_column())->
 							where(array("galleryid = %d", $gallery->{$gallery->id_field}))->
-							run_query(FALSE, FALSE, TRUE)
+							run_query(FALSE, TRUE)
 					);
 
     			    ?>
@@ -426,8 +419,7 @@ class _NGG_Galleries_List_Table extends WP_List_Table {
 	var $_screen;
 	var $_columns;
 
-	function __construct($screen)
-	{
+	function _NGG_Galleries_List_Table( $screen ) {
 		if ( is_string( $screen ) )
 			$screen = convert_to_screen( $screen );
 

@@ -33,7 +33,8 @@ class M_Cache extends C_Base_Module
     function get_type_list()
     {
         return array(
-            'C_Cache' => 'class.cache.php'
+            'C_Cache' => 'class.cache.php',
+            'I_Cache' => 'interface.cache.php'
         );
     }
 }

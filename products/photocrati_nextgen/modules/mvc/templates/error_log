@@ -1,0 +1,2 @@
+[04-Jan-2018 21:07:38 America/New_York] PHP Fatal error:  Class 'C_NextGen_Settings' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/mvc/templates/index.php on line 2
+[04-Jan-2018 21:07:44 America/New_York] PHP Fatal error:  Class 'C_NextGen_Settings' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/mvc/templates/index.php on line 2

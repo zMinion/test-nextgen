@@ -1,1 +1,1 @@
-[16-Jun-2016 08:25:23 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, function 'miss_js_composer_shortcodes_init' not found or invalid function name in /home3/wankitnw/public_html/wp-includes/plugin.php on line 503
+[22-Jul-2014 19:31:41 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, function 'miss_js_composer_shortcodes_init' not found or invalid function name in /home/bjerk/public_html/wp-includes/plugin.php on line 470

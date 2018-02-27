@@ -1,0 +1,2 @@
+[31-Jan-2018 17:44:46 America/New_York] PHP Fatal error:  Class 'Mixin' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/adapter.nextgen_addgallery_pages.php on line 4
+[31-Jan-2018 17:44:48 America/New_York] PHP Fatal error:  Class 'Mixin' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/adapter.nextgen_addgallery_controller.php on line 4

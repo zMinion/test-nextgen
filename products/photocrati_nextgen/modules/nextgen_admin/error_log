@@ -1,1 +1,1 @@
-[02-Nov-2017 18:49:23 America/New_York] PHP Fatal error:  Class 'C_Base_Module' not found in /home3/wankitnw/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_admin/module.nextgen_admin.php on line 12
+[04-Jan-2018 21:02:44 America/New_York] PHP Fatal error:  Class 'Mixin' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_admin/adapter.fs_access_page.php on line 5

@@ -1,0 +1,3 @@
+[04-Jan-2018 21:03:15 America/New_York] PHP Fatal error:  Class 'C_DataMapper_Model' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_data/class.album.php on line 4
+[04-Jan-2018 21:05:16 America/New_York] PHP Fatal error:  Class 'Mixin' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_data/class.gallery_storage.php on line 13
+[04-Jan-2018 21:05:19 America/New_York] PHP Fatal error:  Class 'Mixin' not found in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_data/class.wordpress_gallerystorage_driver.php on line 4

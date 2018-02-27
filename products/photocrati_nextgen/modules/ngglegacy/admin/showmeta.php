@@ -37,9 +37,6 @@ $class = '';
 			</thead>
 	<?php 
 			foreach ($dbdata as $key => $value){
-				if (in_array($key, array('created_timestamp', 'timestamp')) && is_numeric($value)) {
-					$value = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $value);
-				}
 				if ( is_array($value) ) continue;
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
@@ -66,11 +63,6 @@ $class = '';
 			</thead>
 	<?php 
 			foreach ($exifdata as $key => $value){
-				if (in_array($key, array('created_timestamp', 'timestamp')) && is_numeric($value)) {
-					$value = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $value);
-				}
-				if ($key == 'created_date')
-					$value = date_i18n(get_option('date_format'), strtotime($value));
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
 						<td style="width:230px">' . esc_html ( $meta->i18n_name($key) ) . '</td>
@@ -96,9 +88,6 @@ $class = '';
 			</thead>
 	<?php 
 			foreach ($iptcdata as $key => $value){
-				if (in_array($key, array('created_timestamp', 'timestamp')) && is_numeric($value)) {
-					$value = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $value);
-				}
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
 						<td style="width:230px">' . esc_html( $meta->i18n_name($key) ) . '</td>
@@ -123,9 +112,6 @@ $class = '';
 			</thead>
 	<?php 
 			foreach ($xmpdata as $key => $value){
-				if (in_array($key, array('created_timestamp', 'timestamp')) && is_numeric($value)) {
-					$value = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $value);
-				}
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
 						<td style="width:230px">' . esc_html( $meta->i18n_name($key) ) . '</td>

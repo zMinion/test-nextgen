@@ -1,0 +1,1 @@
+[04-Jan-2018 21:04:40 America/New_York] PHP Fatal error:  Using $this when not in object context in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_album/templates/extended.php on line 1

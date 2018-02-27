@@ -1,0 +1,1 @@
+[04-Jan-2018 21:02:52 America/New_York] PHP Fatal error:  Call to undefined function echo_h() in /home2/bjerk/public_html/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_admin/templates/nextgen_admin_page.php on line 2

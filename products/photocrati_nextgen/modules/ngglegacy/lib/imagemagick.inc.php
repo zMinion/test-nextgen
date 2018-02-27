@@ -99,8 +99,9 @@ var $imageMagickBefore;
    * out: nothing 
    * init of class: init of variables, detect needed memory (gd), image format (gd), detect image size (GetImageSize is general PHP, not GD), Image Meta?
    */
-	function __construct($fileName, $no_ErrorImage = false)
-	{
+
+	function ngg_Thumbnail($fileName, $no_ErrorImage = false) {
+		
 		//initialize variables
       	$this->errmsg				= '';
       	$this->error				= false;

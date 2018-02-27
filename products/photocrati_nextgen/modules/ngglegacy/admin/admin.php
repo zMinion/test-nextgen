@@ -150,23 +150,12 @@ class nggAdminPanel{
 
 	// integrate the menu
 	function add_menu()  {
-		
-		if ( current_user_can('manage_options') ) { //IF added by szilard
+
 		add_menu_page( _n( 'Gallery', 'Galleries', 1, 'nggallery' ), _n( 'Gallery', 'Galleries', 1, 'nggallery' ), 'NextGEN Gallery overview', NGGFOLDER, array (&$this, 'show_menu'), path_join(NGGALLERY_URLPATH, 'admin/images/nextgen_16_color.png') );
 	    add_submenu_page( NGGFOLDER , __('Overview', 'nggallery'), __('Overview', 'nggallery'), 'NextGEN Gallery overview', NGGFOLDER, array (&$this, 'show_menu'));
 	    add_submenu_page( NGGFOLDER , __('Manage Galleries', 'nggallery'), __('Manage Galleries', 'nggallery'), 'NextGEN Manage gallery', 'nggallery-manage-gallery', array (&$this, 'show_menu'));
 	    add_submenu_page( NGGFOLDER , _n( 'Manage Albums', 'Albums', 1, 'nggallery' ), _n( 'Manage Albums', 'Manage Albums', 1, 'nggallery' ), 'NextGEN Edit album', 'nggallery-manage-album', array (&$this, 'show_menu'));
 	    add_submenu_page( NGGFOLDER , __('Manage Tags', 'nggallery'), __('Manage Tags', 'nggallery'), 'NextGEN Manage tags', 'nggallery-tags', array (&$this, 'show_menu'));
-		//added by szilard - BEGIN
-		}
-		else {
-		//error_log("mi az abra:".current_user_can('NextGEN Manage gallery'));
-	    add_submenu_page( 'tools.php' , __('Overview', 'nggallery'), __('Overview', 'nggallery'), 'NextGEN Gallery overview', NGGFOLDER, array (&$this, 'show_menu'));
-	    add_submenu_page( 'tools.php' , __('Manage Galleries', 'nggallery'), __('Manage Galleries', 'nggallery'), 'NextGEN Manage gallery', 'nggallery-manage-gallery', array (&$this, 'show_menu'));
-	    add_submenu_page( 'tools.php' , _n( 'Manage Albums', 'Albums', 1, 'nggallery' ), _n( 'Manage Albums', 'Manage Albums', 1, 'nggallery' ), 'NextGEN Edit album', 'nggallery-manage-album', array (&$this, 'show_menu'));
-	    add_submenu_page( 'tools.php' , __('Manage Tags', 'nggallery'), __('Manage Tags', 'nggallery'), 'NextGEN Manage tags', 'nggallery-tags', array (&$this, 'show_menu'));
-		}
-		//added by szilard - END
 
 		//register the column fields
 		$this->register_columns();
@@ -193,7 +182,6 @@ class nggAdminPanel{
 
     	global $wp_admin_bar;
 
-	  if ( current_user_can('manage_options') ) { //IF added by szilard
     	$wp_admin_bar->add_menu( array( 'id' => 'ngg-menu', 'title' => __( 'Gallery' ), 'href' => admin_url('admin.php?page='. NGGFOLDER) ) );
         $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-overview', 'title' => __('Overview', 'nggallery'), 'href' => admin_url('admin.php?page='. NGGFOLDER) ) );
         if ( current_user_can('NextGEN Upload images') )
@@ -204,26 +192,11 @@ class nggAdminPanel{
             $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-manage-album', 'title' => _n( 'Manage Albums', 'Manage Albums', 1, 'nggallery' ), 'href' => admin_url('admin.php?page=nggallery-manage-album') ) );
         if ( current_user_can('NextGEN Manage tags') )
             $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-tags', 'title' => __('Manage Tags', 'nggallery'), 'href' => admin_url('admin.php?page=nggallery-tags') ) );
-	  //added by szilard - BEGIN
-	  }
-	  else {
-	    //error_log("mi az abra:".current_user_can('NextGEN Manage gallery'));
-    	$wp_admin_bar->add_menu( array( 'id' => 'ngg-menu', 'title' => __( 'Gallery' ), 'href' => admin_url('tools.php?page='. NGGFOLDER) ) );
-        $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-overview', 'title' => __('Overview', 'nggallery'), 'href' => admin_url('tools.php?page='. NGGFOLDER) ) );
-        if ( current_user_can('NextGEN Upload images') )
-            $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-add-gallery', 'title' => __('Add Gallery / Images', 'nggallery'), 'href' => admin_url('admin.php?page=ngg_addgallery') ) );
-        if ( current_user_can('NextGEN Manage gallery') )
-            $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-manage-gallery', 'title' => __('Manage Galleries', 'nggallery'), 'href' => admin_url('tools.php?page=nggallery-manage-gallery') ) );
-        if ( current_user_can('NextGEN Edit album') )
-            $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-manage-album', 'title' => _n( 'Manage Albums', 'Manage Albums', 1, 'nggallery' ), 'href' => admin_url('tools.php?page=nggallery-manage-album') ) );
-        if ( current_user_can('NextGEN Manage tags') )
-            $wp_admin_bar->add_menu( array( 'parent' => 'ngg-menu', 'id' => 'ngg-menu-tags', 'title' => __('Manage Tags', 'nggallery'), 'href' => admin_url('tools.php?page=nggallery-tags') ) );
-	  }
-	  //added by szilard - END
     }
 
     // show the network page
     function show_network_settings() {
+		include_once ( dirname (__FILE__) . '/style.php' );
 		include_once ( dirname (__FILE__) . '/wpmu.php' );
 		nggallery_wpmu_setup();
     }
@@ -259,8 +232,17 @@ class nggAdminPanel{
 				$ngg->manage_album = new nggManageAlbum ();
 				$ngg->manage_album->controller();
 				break;
+			case "nggallery-options" :
+				include_once ( dirname (__FILE__) . '/settings.php' );	// nggallery_admin_options
+				$ngg->option_page = new nggOptions ();
+				$ngg->option_page->controller();
+				break;
 			case "nggallery-tags" :
 				include_once ( dirname (__FILE__) . '/tags.php' );		// nggallery_admin_tags
+				break;
+			case "nggallery-style" :
+				include_once ( dirname (__FILE__) . '/style.php' );		// nggallery_admin_style
+				nggallery_admin_style();
 				break;
 			case "nggallery-roles" :
 				include_once ( dirname (__FILE__) . '/roles.php' );		// nggallery_admin_roles
@@ -290,8 +272,24 @@ class nggAdminPanel{
 		if( !isset($_GET['page']) )
 			return;
 
+		// If we're on a NextGen Page
+//		if (preg_match("/ngg|nextgen-gallery/", $_GET['page'])) {
+//			wp_register_script('ngg_social_media', path_join(
+//				NGGALLERY_URLPATH,
+//				'admin/js/ngg_social_media.js'
+//			), array('jquery'));
+//
+//			wp_register_style('ngg_social_media', path_join(
+//				NGGALLERY_URLPATH,
+//				'admin/css/ngg_social_media.css'
+//			));
+//
+//			wp_enqueue_style('ngg_social_media');
+//			wp_enqueue_script('ngg_social_media');
+//		}
+
         // used to retrieve the uri of some module resources
-        $router = C_Router::get_instance();
+        $router = C_Component_Registry::get_instance()->get_utility('I_Router');
 
 		wp_register_script('ngg-ajax', NGGALLERY_URLPATH . 'admin/js/ngg.ajax.js', array('jquery'), '1.4.1');
 		wp_localize_script('ngg-ajax', 'nggAjaxSetup', array(
@@ -304,7 +302,31 @@ class nggAdminPanel{
 					'error' => __('Unexpected Error', 'nggallery'),
 					'failure' => __('A failure occurred', 'nggallery')
 		) );
+        wp_register_script( 'ngg-plupload-handler', NGGALLERY_URLPATH .'admin/js/plupload.handler.js', array('plupload-all'), '0.0.1' );
+    	wp_localize_script( 'ngg-plupload-handler', 'pluploadL10n', array(
+    		'queue_limit_exceeded' => __('You have attempted to queue too many files.'),
+    		'file_exceeds_size_limit' => __('This file exceeds the maximum upload size for this site.'),
+    		'zero_byte_file' => __('This file is empty. Please try another.'),
+    		'invalid_filetype' => __('This file type is not allowed. Please try another.'),
+    		'not_an_image' => __('This file is not an image. Please try another.'),
+    		'image_memory_exceeded' => __('Memory exceeded. Please try another smaller file.'),
+    		'image_dimensions_exceeded' => __('This is larger than the maximum size. Please try another.'),
+    		'default_error' => __('An error occurred in the upload. Please try again later.'),
+    		'missing_upload_url' => __('There was a configuration error. Please contact the server administrator.'),
+    		'upload_limit_exceeded' => __('You may only upload 1 file.'),
+    		'http_error' => __('HTTP error.'),
+    		'upload_failed' => __('Upload failed.'),
+    		'io_error' => __('IO error.'),
+    		'security_error' => __('Security error.'),
+    		'file_cancelled' => __('File canceled.'),
+    		'upload_stopped' => __('Upload stopped.'),
+    		'dismiss' => __('Dismiss'),
+    		'crunching' => __('Crunching&hellip;'),
+    		'deleted' => __('moved to the trash.'),
+    		'error_uploading' => __('&#8220;%s&#8221; has failed to upload due to an error')
+    	) );
 		wp_register_script('ngg-progressbar', NGGALLERY_URLPATH .'admin/js/ngg.progressbar.js', array('jquery'), '2.0.1');
+        wp_register_script('jquery-ui-autocomplete', NGGALLERY_URLPATH .'admin/js/jquery.ui.autocomplete.min.js', array('jquery-ui-core', 'jquery-ui-widget'), '1.8.15');
 
         // Enqueue the new Gritter-based progress bars
         wp_enqueue_style('ngg_progressbar');
@@ -333,11 +355,29 @@ class nggAdminPanel{
                 wp_enqueue_style('nextgen_admin_page', $router->get_static_url('photocrati-nextgen_admin#nextgen_admin_page.css'));
 			break;
 			case "nggallery-manage-album" :
+                wp_enqueue_script( 'jquery-ui-autocomplete' );
                 wp_enqueue_script( 'jquery-ui-dialog' );
                 wp_enqueue_script( 'jquery-ui-sortable' );
-                wp_enqueue_script( 'select2' );
-				wp_enqueue_style('select2');
+                wp_enqueue_script( 'ngg-autocomplete', NGGALLERY_URLPATH .'admin/js/ngg.autocomplete.js', array('jquery-ui-autocomplete'), '1.0.1');
 			break;
+			case "nggallery-options" :
+				wp_enqueue_script( 'jquery-ui-tabs' );
+				//wp_enqueue_script( 'ngg-colorpicker', NGGALLERY_URLPATH .'admin/js/colorpicker/js/colorpicker.js', array('jquery'), '1.0');
+			break;
+			case "nggallery-add-gallery" :
+				wp_enqueue_script( 'jquery-ui-accordion' );
+				wp_enqueue_script( 'multifile', NGGALLERY_URLPATH .'admin/js/jquery.MultiFile.js', array('jquery'), '1.4.4' );
+                wp_enqueue_script( 'ngg-plupload-handler' );
+				wp_enqueue_script( 'ngg-ajax' );
+				wp_enqueue_script( 'ngg-progressbar' );
+                wp_enqueue_script( 'jquery-ui-dialog' );
+				wp_enqueue_script( 'jqueryFileTree', NGGALLERY_URLPATH .'admin/js/jqueryFileTree/jqueryFileTree.js', array('jquery'), '1.0.1' );
+			break;
+			case "nggallery-style" :
+				wp_enqueue_script( 'codepress' );
+				wp_enqueue_script( 'ngg-colorpicker', NGGALLERY_URLPATH .'admin/js/colorpicker/js/colorpicker.js', array('jquery'), '1.0');
+			break;
+
 		}
 	}
 
@@ -366,7 +406,7 @@ class nggAdminPanel{
 			return;
 
         // used to retrieve the uri of some module resources
-        $router = C_Router::get_instance();
+        $router = C_Component_Registry::get_instance()->get_utility('I_Router');
 
 		switch ($_GET['page']) {
 			case NGGFOLDER :
@@ -377,6 +417,13 @@ class nggAdminPanel{
                 if ( !defined('IS_WP_3_3') )
                     wp_admin_css( 'css/dashboard' );
 			break;
+			case "nggallery-add-gallery":
+				$this->enqueue_jquery_ui_theme();
+				wp_enqueue_style( 'jqueryFileTree', NGGALLERY_URLPATH .'admin/js/jqueryFileTree/jqueryFileTree.css', false, '1.0.1', 'screen' );
+			case "nggallery-options" :
+				wp_enqueue_style( 'nggtabs', NGGALLERY_URLPATH .'admin/css/jquery.ui.tabs.css', false, '2.5.0', 'screen' );
+				wp_enqueue_style( 'nggadmin' );
+            break;
 			case "nggallery-manage-gallery" :
                 wp_enqueue_script('jquery-ui-tooltip');
                 wp_enqueue_style('shutter', $router->get_static_url('photocrati-lightbox#shutter/shutter.css'), false, '1.3.2', 'screen');
@@ -388,6 +435,11 @@ class nggAdminPanel{
 			case "nggallery-tags" :
 				wp_enqueue_style( 'nggtags', NGGALLERY_URLPATH .'admin/css/tags-admin.css', false, '2.6.1', 'screen' );
 				break;
+			case "nggallery-style" :
+				wp_admin_css( 'css/theme-editor' );
+				wp_enqueue_style('nggcolorpicker', NGGALLERY_URLPATH.'admin/js/colorpicker/css/colorpicker.css', false, '1.0', 'screen');
+				wp_enqueue_style('nggadmincp', NGGALLERY_URLPATH.'admin/css/nggColorPicker.css', false, '1.0', 'screen');
+			break;
 		}
 	}
 

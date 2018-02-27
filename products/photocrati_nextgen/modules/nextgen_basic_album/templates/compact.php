@@ -20,11 +20,11 @@
                 <a class="ngg-album-desc"
                    title="<?php echo esc_attr($gallery->title); ?>"
                    href="<?php echo nextgen_esc_url($gallery->pagelink); ?>"
-                    <?php echo $max_width; ?>>
+                   <?php echo $max_width; ?>>
                     <?php echo_safe_html($gallery->title); ?>
                 </a>
             </h4>
-            <p class="ngg-album-gallery-image-counter">
+            <p>
                 <?php if (isset($gallery->counter) && $gallery->counter > 0) { ?>
                     <strong><?php echo $gallery->counter; ?></strong>&nbsp;<?php _e('Photos', 'nggallery'); ?>
                 <?php } else { ?>
@@ -34,6 +34,5 @@
         </div>
     <?php } ?>
     <br class="ngg-clear"/>
-    <?php echo $pagination ?>
 </div>
 <?php $this->end_element(); ?>

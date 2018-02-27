@@ -11,8 +11,8 @@
 class NextGEN_shortcodes {
 
     // register the new shortcodes
-    function __construct()
-    {
+    function NextGEN_shortcodes() {
+
 		// Long posts should require a higher limit, see http://core.trac.wordpress.org/ticket/8553
         $pcre_limit = 500000;
         if ((int)ini_get('pcre.backtrack_limit') < $pcre_limit) {
